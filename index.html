@@ -6,1339 +6,150 @@
 <title>ReconIQ — Reconciliations Mastered</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg:           #0F1729;
-  --panel:        #1A2540;
-  --header-bg:    #131C35;
-  --card:         #1E2E4A;
-  --card-2:       #162035;
-  --border:       #2A3D5E;
-  --purple:       #7C3AED;
-  --purple-light: #9D5CF5;
-  --purple-dark:  #5B21B6;
-  --purple-dim:   #3D1F7A;
-  --teal:         #14B8A6;
-  --teal-dark:    #0D6E65;
-  --orange:       #F59E0B;
-  --white:        #FFFFFF;
-  --light-gray:   #C8D0E0;
-  --mid-gray:     #8892A4;
-  --dim-gray:     #4A5568;
-  --font-display: 'Syne', sans-serif;
-  --font-body:    'DM Sans', sans-serif;
-  --radius:       8px;
-  --radius-lg:    12px;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--light-gray);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* PAGE SYSTEM */
-.page { display: none; min-height: 100vh; }
-.page.active { display: block; }
-
-/* ── LOGO SVG ── */
-.logo-svg { width: 32px; height: 32px; flex-shrink: 0; }
-
-/* ── NAV ── */
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: var(--header-bg);
-  border-bottom: 1px solid var(--border);
-  padding: 0 48px;
-  height: 68px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-nav::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0;
-  width: 4px; height: 100%;
-  background: var(--purple);
-}
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-.nav-brand {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 18px;
-  color: var(--white);
-  letter-spacing: -0.3px;
-}
-
-/* Mobile hamburger */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 8px;
-  border: none;
-  background: none;
-  z-index: 1001;
-}
-.hamburger span {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--light-gray);
-  border-radius: 2px;
-  transition: all 0.3s;
-}
-.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  list-style: none;
-}
-.nav-links li a, .nav-links li button {
-  padding: 8px 14px;
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  font-weight: 500;
-  color: var(--light-gray);
-  text-decoration: none;
-  border: none;
-  background: none;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: color 0.2s, background 0.2s;
-  white-space: nowrap;
-}
-.nav-links li a:hover, .nav-links li button:hover,
-.nav-links li a.active, .nav-links li button.active {
-  color: var(--white);
-  background: rgba(124,58,237,0.18);
-}
-.nav-links li a.active, .nav-links li button.active { color: var(--purple-light); }
-.nav-cta { flex-shrink: 0; }
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: var(--purple);
-  color: white;
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  font-weight: 600;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.2s, transform 0.15s;
-  white-space: nowrap;
-}
-.btn-primary:hover { background: var(--purple-light); transform: translateY(-1px); }
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: transparent;
-  color: var(--purple-light);
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  font-weight: 600;
-  border: 1px solid var(--purple);
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-.btn-secondary:hover { background: rgba(124,58,237,0.15); transform: translateY(-1px); }
-.btn-teal {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: var(--teal-dark);
-  color: white;
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  font-weight: 600;
-  border: 1px solid var(--teal);
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-.btn-teal:hover { background: var(--teal); }
-
-/* LAYOUT */
-.container { max-width: 1180px; margin: 0 auto; padding: 0 48px; }
-section { padding: 80px 0; }
-section.tight { padding: 56px 0; }
-section.hero { padding: 0; }
-
-.section-eyebrow {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--purple-light);
-  margin-bottom: 12px;
-}
-.section-title {
-  font-family: var(--font-display);
-  font-size: 38px;
-  font-weight: 800;
-  color: var(--white);
-  line-height: 1.15;
-  letter-spacing: -0.5px;
-  margin-bottom: 16px;
-}
-.section-title span { color: var(--purple-light); }
-.section-subtitle {
-  font-size: 17px;
-  color: var(--mid-gray);
-  max-width: 620px;
-  line-height: 1.7;
-  margin-bottom: 48px;
-}
-.section-header { text-align: center; }
-.section-header .section-subtitle { margin: 0 auto 48px; }
-
-.divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 0; }
-
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  position: relative;
-  transition: border-color 0.25s, transform 0.25s;
-}
-.card:hover { border-color: var(--purple); transform: translateY(-3px); }
-.card-accent-top {
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 3px;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-}
-
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-
-.icon-circle {
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  background: var(--purple-dim);
-  border: 1px solid var(--purple);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-  margin-bottom: 16px;
-}
-
-.tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border-radius: 4px;
-}
-.tag-purple { background: var(--purple-dim); color: var(--purple-light); border: 1px solid var(--purple); }
-.tag-teal   { background: rgba(13,110,101,0.3); color: var(--teal); border: 1px solid var(--teal-dark); }
-.tag-orange { background: rgba(245,158,11,0.15); color: var(--orange); border: 1px solid rgba(245,158,11,0.3); }
-
-.stat-box {
-  background: var(--purple-dark);
-  border: 1px solid var(--purple);
-  border-radius: var(--radius);
-  padding: 20px 16px;
-  text-align: center;
-}
-.stat-number { font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--white); line-height: 1; }
-.stat-label { font-size: 10px; letter-spacing: 2px; font-weight: 600; text-transform: uppercase; color: #D4BBFF; margin-top: 6px; }
-
-.page-hero {
-  background: var(--panel);
-  border-bottom: 1px solid var(--border);
-  padding: 64px 0 56px;
-  position: relative;
-  overflow: hidden;
-}
-.page-hero::after {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--purple), var(--teal));
-}
-.page-hero-bg {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(124,58,237,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 60% at 20% 50%, rgba(20,184,166,0.05) 0%, transparent 60%);
-  pointer-events: none;
-}
-.page-hero .container { position: relative; }
-
-/* HERO */
-.hero-section {
-  min-height: calc(100vh - 68px);
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
-.hero-bg {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 70% 70% at 65% 40%, rgba(124,58,237,0.12) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 60% at 20% 60%, rgba(20,184,166,0.06) 0%, transparent 50%);
-}
-.hero-grid-pattern {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(42,61,94,0.3) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(42,61,94,0.3) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 80% 80% at 70% 50%, black 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-  padding: 100px 0 80px;
-}
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  background: rgba(124,58,237,0.15);
-  border: 1px solid rgba(124,58,237,0.4);
-  border-radius: 20px;
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--purple-light);
-  margin-bottom: 24px;
-}
-.hero-eyebrow-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--teal);
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
-}
-.hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 5vw, 62px);
-  font-weight: 800;
-  color: var(--white);
-  line-height: 1.1;
-  letter-spacing: -1.5px;
-  margin-bottom: 24px;
-}
-.hero-title em { font-style: normal; color: var(--purple-light); }
-.hero-body {
-  font-size: 17px;
-  line-height: 1.75;
-  color: var(--mid-gray);
-  margin-bottom: 36px;
-  max-width: 520px;
-}
-.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-.hero-right { display: flex; flex-direction: column; gap: 16px; }
-
-/* HEALTH CHECK CARD */
-.hc-hero-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: 0 24px 48px rgba(0,0,0,0.4);
-  animation: floatCard 6s ease-in-out infinite;
-}
-@keyframes floatCard {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-.hc-hero-header {
-  background: var(--purple-dark);
-  padding: 18px 24px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid var(--purple);
-}
-.hc-hero-header-icon { font-size: 18px; }
-.hc-hero-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--white); }
-.hc-hero-subtitle { font-size: 11px; color: #D4BBFF; margin-top: 1px; }
-.hc-items { padding: 8px 0; }
-.hc-item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 24px;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.2s;
-}
-.hc-item:last-child { border-bottom: none; }
-.hc-item:hover { background: rgba(124,58,237,0.08); }
-.hc-item-num {
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  background: var(--purple-dim);
-  border: 1px solid var(--purple);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 700; color: var(--purple-light);
-  flex-shrink: 0;
-}
-.hc-item-text { font-size: 13px; color: var(--light-gray); }
-.hc-item-tag {
-  margin-left: auto;
-  font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-  padding: 2px 7px; border-radius: 3px;
-}
-.hc-item-tag.free { background: rgba(20,184,166,0.2); color: var(--teal); }
-.hc-item-tag.premium { background: var(--purple-dim); color: var(--purple-light); }
-.hc-footer { padding: 16px 24px; background: var(--card-2); border-top: 1px solid var(--border); }
-.hc-footer-text { font-size: 11.5px; color: var(--mid-gray); margin-bottom: 8px; }
-.hc-footer-bar { height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; }
-.hc-footer-fill {
-  height: 100%; width: 0; border-radius: 2px;
-  background: linear-gradient(90deg, var(--purple), var(--teal));
-  animation: fillBar 2s 0.5s ease forwards;
-}
-@keyframes fillBar { to { width: 73%; } }
-
-/* STATS */
-.stats-strip {
-  background: var(--header-bg);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 40px 0;
-}
-.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
-.stat-item { text-align: center; padding: 0 24px; position: relative; }
-.stat-item + .stat-item::before {
-  content: '';
-  position: absolute; left: 0; top: 20%; height: 60%;
-  width: 1px; background: var(--border);
-}
-.stat-item-number { font-family: var(--font-display); font-size: 42px; font-weight: 800; color: var(--white); line-height: 1; }
-.stat-item-number span { color: var(--purple-light); }
-.stat-item-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-gray); margin-top: 6px; }
-
-/* SERVICE CARDS */
-.service-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.25s, transform 0.25s;
-}
-.service-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: var(--purple);
-  transform: scaleX(0); transition: transform 0.3s; transform-origin: left;
-}
-.service-card:hover { border-color: rgba(124,58,237,0.5); transform: translateY(-4px); }
-.service-card:hover::before { transform: scaleX(1); }
-.service-card-num { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--dim-gray); margin-bottom: 16px; }
-.service-card-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 10px; line-height: 1.3; }
-.service-card-body { font-size: 14px; color: var(--mid-gray); line-height: 1.6; }
-
-/* USE CASES */
-.use-case-row {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px 24px;
-  display: grid;
-  grid-template-columns: 120px 1fr 1fr;
-  gap: 24px;
-  align-items: center;
-  transition: border-color 0.2s, transform 0.2s;
-}
-.use-case-row:hover { border-color: var(--purple); transform: translateX(4px); }
-.use-case-client { font-size: 12px; color: var(--mid-gray); }
-.use-case-title { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
-.use-case-result { font-size: 13px; color: var(--light-gray); }
-.use-case-outcome-label { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal); margin-bottom: 4px; }
-
-/* BLOG CARDS */
-.blog-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: border-color 0.25s, transform 0.25s;
-  cursor: pointer;
-}
-.blog-card:hover { border-color: var(--purple-light); transform: translateY(-4px); }
-.blog-card-body { padding: 24px; }
-.blog-card-meta { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
-.blog-card-date { font-size: 11px; color: var(--dim-gray); }
-.blog-card-title { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 8px; line-height: 1.4; }
-.blog-card-excerpt { font-size: 13.5px; color: var(--mid-gray); line-height: 1.6; }
-.blog-card-author { display: flex; align-items: center; gap: 8px; padding: 14px 24px; border-top: 1px solid var(--border); }
-.blog-card-avatar {
-  width: 28px; height: 28px; border-radius: 50%;
-  background: var(--purple-dark); border: 1px solid var(--purple);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700; color: white; flex-shrink: 0;
-}
-.blog-card-author-name { font-size: 12px; color: var(--mid-gray); }
-
-/* CTA BAND */
-.cta-band {
-  background: linear-gradient(135deg, var(--purple-dark), var(--purple-dim));
-  border-top: 1px solid var(--purple);
-  border-bottom: 1px solid var(--purple);
-  padding: 64px 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.cta-band::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 60% 100% at 50% 50%, rgba(157,92,245,0.15), transparent);
-  pointer-events: none;
-}
-
-/* TEAM */
-.team-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: border-color 0.25s, transform 0.25s;
-}
-.team-card:hover { border-color: var(--purple); transform: translateY(-4px); }
-.team-card-header { background: var(--panel); border-bottom: 1px solid var(--border); padding: 28px 24px; text-align: center; }
-.team-avatar {
-  width: 72px; height: 72px; border-radius: 50%;
-  background: var(--purple-dark); border: 2px solid var(--purple);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display); font-size: 22px; font-weight: 800; color: white;
-  margin: 0 auto 12px;
-}
-.team-name { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
-.team-role { display: inline-block; padding: 4px 12px; background: var(--purple); color: white; font-size: 11px; font-weight: 600; border-radius: 4px; margin-top: 6px; }
-.team-card-body { padding: 20px 24px; }
-.team-skill-list { list-style: none; }
-.team-skill-list li { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; font-size: 13px; color: var(--light-gray); border-bottom: 1px solid var(--border); }
-.team-skill-list li:last-child { border-bottom: none; }
-.team-skill-list li::before { content: '▸'; color: var(--purple-light); font-size: 10px; margin-top: 3px; flex-shrink: 0; }
-
-.value-card { background: var(--card-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; display: flex; gap: 16px; }
-.value-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
-.value-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
-.value-body { font-size: 13.5px; color: var(--mid-gray); line-height: 1.6; }
-
-/* HEALTH CHECK FEATURED */
-.hc-featured {
-  background: linear-gradient(135deg, var(--panel), var(--card-2));
-  border: 1px solid var(--purple);
-  border-radius: var(--radius-lg);
-  padding: 48px;
-  position: relative;
-  overflow: hidden;
-}
-.hc-featured::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--purple), var(--teal));
-}
-.hc-featured-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 5px 12px; background: var(--purple); color: white;
-  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-  border-radius: 4px; margin-bottom: 20px;
-}
-.hc-modules { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 28px; }
-.hc-module {
-  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 14px 16px; display: flex; align-items: center; gap: 10px; transition: border-color 0.2s;
-}
-.hc-module:hover { border-color: var(--purple); }
-.hc-module-icon { font-size: 18px; flex-shrink: 0; }
-.hc-module-text { font-size: 13px; color: var(--light-gray); font-weight: 500; }
-.hc-module-tag { margin-left: auto; font-size: 9px; font-weight: 700; letter-spacing: 1px; padding: 2px 7px; border-radius: 3px; white-space: nowrap; }
-
-.service-detail { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
-.service-detail-header { background: var(--panel); padding: 28px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 16px; }
-.service-detail-body { padding: 28px 32px; }
-
-/* PRICING */
-.pricing-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; position: relative; }
-.pricing-card.featured { border-color: var(--purple); background: linear-gradient(135deg, var(--card), var(--card-2)); }
-.pricing-card.featured::before {
-  content: 'MOST POPULAR';
-  position: absolute; top: -1px; right: 24px;
-  background: var(--purple); color: white;
-  font-size: 9px; font-weight: 700; letter-spacing: 2px;
-  padding: 4px 10px; border-radius: 0 0 6px 6px;
-}
-.pricing-name { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
-.pricing-price { font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--white); margin: 16px 0 4px; }
-.pricing-price-sub { font-size: 13px; color: var(--mid-gray); margin-bottom: 20px; }
-.pricing-features { list-style: none; margin: 20px 0 24px; }
-.pricing-features li { display: flex; align-items: flex-start; gap: 8px; padding: 7px 0; font-size: 13.5px; color: var(--light-gray); border-bottom: 1px solid var(--border); }
-.pricing-features li:last-child { border-bottom: none; }
-.pricing-check { color: var(--teal); font-size: 12px; flex-shrink: 0; margin-top: 2px; }
-
-/* PROCESS */
-.process-steps { display: flex; gap: 0; position: relative; overflow: hidden; }
-.process-step { flex: 1; text-align: center; padding: 28px 16px; position: relative; }
-.process-step::after {
-  content: '→'; position: absolute; right: -8px; top: 50%;
-  transform: translateY(-50%); color: var(--purple); font-size: 20px; z-index: 2;
-}
-.process-step:last-child::after { display: none; }
-.process-circle {
-  width: 52px; height: 52px; border-radius: 50%;
-  background: var(--purple-dark); border: 2px solid var(--purple);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display); font-size: 18px; font-weight: 800; color: white;
-  margin: 0 auto 14px;
-}
-.process-label { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
-.process-desc { font-size: 12px; color: var(--mid-gray); line-height: 1.5; }
-
-/* NEWSROOM */
-.news-featured {
-  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
-  overflow: hidden; display: grid; grid-template-columns: 1.4fr 1fr;
-  margin-bottom: 48px; transition: border-color 0.25s;
-}
-.news-featured:hover { border-color: var(--purple); }
-.news-featured-content { padding: 48px; display: flex; flex-direction: column; justify-content: space-between; }
-.news-featured-title { font-family: var(--font-display); font-size: 26px; font-weight: 800; color: var(--white); line-height: 1.3; margin: 12px 0 16px; }
-.news-featured-excerpt { font-size: 15px; color: var(--mid-gray); line-height: 1.7; margin-bottom: 24px; }
-.news-featured-visual { background: linear-gradient(135deg, var(--panel), var(--card-2)); border-left: 1px solid var(--border); display: flex; align-items: center; justify-content: center; padding: 48px; }
-.news-visual-icon { font-size: 80px; opacity: 0.2; }
-
-.press-release {
-  background: var(--card-2); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 20px 24px; display: flex; align-items: center; gap: 20px;
-  margin-bottom: 12px; transition: border-color 0.2s, transform 0.2s; cursor: pointer;
-}
-.press-release:hover { border-color: var(--purple); transform: translateX(4px); }
-.press-release-date { min-width: 80px; text-align: center; font-family: var(--font-display); }
-.press-date-day { font-size: 28px; font-weight: 800; color: var(--white); line-height: 1; }
-.press-date-month { font-size: 11px; font-weight: 600; letter-spacing: 1px; color: var(--mid-gray); text-transform: uppercase; }
-.press-release-title { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
-.press-release-body { font-size: 13px; color: var(--mid-gray); }
-.press-release-arrow { margin-left: auto; color: var(--purple-light); font-size: 18px; flex-shrink: 0; }
-
-/* RESOURCES */
-.resource-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: border-color 0.25s, transform 0.25s; }
-.resource-card:hover { border-color: var(--purple-light); transform: translateY(-4px); }
-.resource-card-thumb { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 52px; }
-.resource-card-body { padding: 20px 20px 16px; }
-.resource-card-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 8px; line-height: 1.4; }
-.resource-card-desc { font-size: 13px; color: var(--mid-gray); line-height: 1.55; margin-bottom: 14px; }
-.resource-card-footer { padding: 12px 20px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-.resource-price { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--white); }
-.resource-price.free { color: var(--teal); }
-
-/* PARTNERS */
-.partner-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.25s, transform 0.25s; }
-.partner-card:hover { border-color: var(--teal); transform: translateY(-4px); }
-.partner-logo-placeholder { height: 60px; display: flex; align-items: center; justify-content: center; background: var(--panel); border-radius: var(--radius); border: 1px solid var(--border); font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--mid-gray); margin-bottom: 4px; }
-.partner-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--white); }
-.partner-type { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal); margin-bottom: 4px; }
-.partner-desc { font-size: 13px; color: var(--mid-gray); line-height: 1.55; }
-
-/* FOOTER */
-footer { background: var(--header-bg); border-top: 1px solid var(--border); padding: 64px 0 0; }
-.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; }
-.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-.footer-tagline { font-size: 14px; color: var(--mid-gray); line-height: 1.7; margin-bottom: 20px; }
-.footer-contact a { display: block; font-size: 13px; color: var(--mid-gray); text-decoration: none; margin-bottom: 6px; transition: color 0.2s; }
-.footer-contact a:hover { color: var(--purple-light); }
-.footer-heading { font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin-bottom: 20px; }
-.footer-links { list-style: none; }
-.footer-links li { margin-bottom: 10px; }
-.footer-links a, .footer-links button { font-size: 13.5px; color: var(--mid-gray); text-decoration: none; background: none; border: none; cursor: pointer; padding: 0; transition: color 0.2s; text-align: left; }
-.footer-links a:hover, .footer-links button:hover { color: var(--purple-light); }
-.footer-bottom { border-top: 1px solid var(--border); padding: 20px 0; display: flex; align-items: center; justify-content: space-between; }
-.footer-legal { font-size: 12px; color: var(--dim-gray); }
-.footer-socials { display: flex; gap: 10px; }
-.social-btn { width: 32px; height: 32px; border-radius: 6px; background: var(--card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--mid-gray); cursor: pointer; transition: all 0.2s; }
-.social-btn:hover { background: var(--purple-dim); border-color: var(--purple); color: white; }
-
-/* ANIMATIONS */
-.fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn 0.6s ease forwards; }
-@keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-
-.text-purple { color: var(--purple-light); }
-.text-teal { color: var(--teal); }
-.text-white { color: var(--white); }
-.text-mid { color: var(--mid-gray); }
-.text-small { font-size: 13px; }
-.font-display { font-family: var(--font-display); }
-.font-bold { font-weight: 700; }
-.space-between { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-
-.highlight-box { background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.25); border-radius: var(--radius); padding: 20px 24px; }
-.pillar { border-left: 3px solid var(--purple); padding-left: 20px; margin-bottom: 24px; }
-.pillar-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
-.pillar-body { font-size: 14px; color: var(--mid-gray); line-height: 1.6; }
-.bg-section-alt { background: var(--panel); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-
-/* ═══════════════════════════
-   MOBILE RESPONSIVE
-   ═══════════════════════════ */
-@media (max-width: 900px) {
-  nav {
-    padding: 0 20px;
-    height: 60px;
-  }
-  .hamburger { display: flex; }
-  .nav-links {
-    display: none;
-    position: fixed;
-    top: 60px; left: 0; right: 0;
-    background: var(--header-bg);
-    border-bottom: 1px solid var(--border);
-    flex-direction: column;
-    align-items: stretch;
-    padding: 12px 20px 20px;
-    gap: 2px;
-    z-index: 999;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-  }
-  .nav-links.open { display: flex; }
-  .nav-links li { width: 100%; }
-  .nav-links li a, .nav-links li button { width: 100%; display: block; padding: 12px 16px; font-size: 15px; text-align: left; border-radius: 8px; }
-  .nav-cta { display: none; }
-
-  .container { padding: 0 20px; }
-  section { padding: 48px 0; }
-
-  .hero-section { min-height: auto; }
-  .hero-content { grid-template-columns: 1fr; gap: 40px; padding: 60px 0 48px; }
-  .hero-body { font-size: 15px; }
-  .hero-actions { flex-direction: column; }
-  .hero-actions .btn-primary, .hero-actions .btn-secondary { width: 100%; justify-content: center; }
-
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-  .stat-item + .stat-item::before { display: none; }
-  .stat-item { padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); }
-
-  .grid-2 { grid-template-columns: 1fr; }
-  .grid-3 { grid-template-columns: 1fr; }
-  .grid-4 { grid-template-columns: repeat(2, 1fr); }
-
-  .section-title { font-size: 28px; }
-  .page-hero { padding: 40px 0 36px; }
-  .page-hero h1 { font-size: 32px !important; }
-
-  .use-case-row { grid-template-columns: 1fr; gap: 12px; }
-
-  .news-featured { grid-template-columns: 1fr; }
-  .news-featured-visual { display: none; }
-  .news-featured-content { padding: 28px; }
-
-  .process-steps { flex-direction: column; }
-  .process-step::after { content: '↓'; right: auto; left: 50%; bottom: -14px; top: auto; transform: translateX(-50%); }
-  .process-step:last-child::after { display: none; }
-
-  .hc-featured { padding: 24px; }
-  .hc-modules { grid-template-columns: 1fr; }
-
-  .service-detail-header { flex-wrap: wrap; gap: 12px; }
-  .service-detail-header .tag { margin-left: 0 !important; }
-  .service-detail-header, .service-detail-body { padding: 20px; }
-
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-  .footer-legal { font-size: 11px; }
-
-  .cta-band { padding: 48px 0; }
-  .cta-band h2 { font-size: 24px !important; }
-  .cta-band > div > div:last-child { flex-direction: column; align-items: center; }
-
-  .press-release { flex-wrap: wrap; gap: 12px; }
-  .press-release-date { min-width: auto; }
-}
-
-@media (max-width: 480px) {
-  .grid-4 { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .stat-item-number { font-size: 32px; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .hc-item-text { font-size: 12px; }
-  .hero-title { font-size: 30px; letter-spacing: -0.5px; }
-  .pricing-card { padding: 24px; }
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<!-- NAV -->
 <nav>
-  <div class="nav-logo" onclick="showPage('home')">
-    <!-- Real ReconIQ Logo SVG -->
-    <img src="be4a7995-bab6-4608-9a78-b3199af90d27.jpg" alt="ReconIQ" class="logo-svg" style="border-radius:4px;">
-    <div class="nav-brand">ReconIQ</div>
-  </div>
-  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <a href="index.html" class="nav-logo"><img src="be4a7995-bab6-4608-9a78-b3199af90d27.jpg" alt="ReconIQ" class="logo-svg" style="border-radius:4px;"><div class="nav-brand">ReconIQ</div></a>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
   <ul class="nav-links" id="nav-links">
-    <li><button onclick="showPage('home')" id="nav-home" class="active">Home</button></li>
-    <li><button onclick="showPage('about')" id="nav-about">About Us</button></li>
-    <li><button onclick="showPage('services')" id="nav-services">Services</button></li>
-    <li><button onclick="showPage('newsroom')" id="nav-newsroom">Newsroom</button></li>
-    <li><button onclick="showPage('resources')" id="nav-resources">Resources</button></li>
-    <li><button onclick="showPage('partners')" id="nav-partners">Partners</button></li>
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="newsroom.html">Newsroom</a></li>
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="partners.html">Partners</a></li>
   </ul>
-  <div class="nav-cta">
-    <button class="btn-primary" onclick="showPage('services')">🔍 Book a Health Check</button>
-  </div>
+  <div class="nav-cta"><a href="services.html" class="btn-primary">🔍 Book a Health Check</a></div>
 </nav>
 
-
-<!-- PAGE: HOME -->
-<div id="page-home" class="page active">
-
-  <section class="hero-section">
-    <div class="hero-bg"></div>
-    <div class="hero-grid-pattern"></div>
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-left fade-in">
-          <div class="hero-eyebrow">
-            <div class="hero-eyebrow-dot"></div>
-            Specialist Reconciliation Consulting
-          </div>
-          <h1 class="hero-title">
-            Are your reconciliations<br>
-            <em>actually delivering ROI?</em>
-          </h1>
-          <p class="hero-body">
-            ReconIQ is the only vendor-agnostic consultancy focused exclusively on reconciliations. We reveal what vendors won't tell you — and get you to the right answer in days, not months.
-          </p>
-          <div class="hero-actions">
-            <button class="btn-primary" onclick="showPage('services')">🔍 Start Your Health Check</button>
-            <button class="btn-secondary" onclick="showPage('about')">Learn About Us →</button>
-          </div>
-        </div>
-        <div class="hero-right fade-in delay-2">
-          <div class="hc-hero-card">
-            <div class="hc-hero-header">
-              <div class="hc-hero-header-icon">🔬</div>
-              <div>
-                <div class="hc-hero-title">Reconciliation Health Check</div>
-                <div class="hc-hero-subtitle">Identify what your vendor won't tell you</div>
-              </div>
-            </div>
-            <div class="hc-items">
-              <div class="hc-item"><div class="hc-item-num">1</div><div class="hc-item-text">AI readiness &amp; match rate assessment</div><span class="hc-item-tag free">Free</span></div>
-              <div class="hc-item"><div class="hc-item-num">2</div><div class="hc-item-text">Current vendor &amp; licensing review</div><span class="hc-item-tag free">Free</span></div>
-              <div class="hc-item"><div class="hc-item-num">3</div><div class="hc-item-text">Data ingestion &amp; quality audit</div><span class="hc-item-tag free">Free</span></div>
-              <div class="hc-item"><div class="hc-item-num">4</div><div class="hc-item-text">Architecture &amp; cloud/SaaS review</div><span class="hc-item-tag premium">Premium</span></div>
-              <div class="hc-item"><div class="hc-item-num">5</div><div class="hc-item-text">ROI &amp; optimisation opportunity report</div><span class="hc-item-tag premium">Premium</span></div>
-              <div class="hc-item"><div class="hc-item-num">6</div><div class="hc-item-text">Vendor selection shortlist in days</div><span class="hc-item-tag premium">Premium</span></div>
-            </div>
-            <div class="hc-footer">
-              <div class="hc-footer-text">Typical vendor selection takes 3 months. ReconIQ does it in days.</div>
-              <div class="hc-footer-bar"><div class="hc-footer-fill"></div></div>
-            </div>
-          </div>
+<section class="hero-section">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-pattern"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="fade-in">
+        <div class="hero-eyebrow"><div class="hero-eyebrow-dot"></div>Specialist Reconciliation Consulting</div>
+        <h1 class="hero-title">Are your reconciliations<br><em>actually delivering ROI?</em></h1>
+        <p class="hero-body">ReconIQ is the only vendor-agnostic consultancy focused exclusively on reconciliations. We reveal what vendors won't tell you — and get you to the right answer in days, not months.</p>
+        <div class="hero-actions">
+          <a href="services.html" class="btn-primary">🔍 Start Your Health Check</a>
+          <a href="about.html" class="btn-secondary">Learn About Us →</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <div class="stats-strip">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item"><div class="stat-item-number">20<span>+</span></div><div class="stat-item-label">Years Experience</div></div>
-        <div class="stat-item"><div class="stat-item-number">50<span>+</span></div><div class="stat-item-label">Client Engagements</div></div>
-        <div class="stat-item"><div class="stat-item-number">30<span>+</span></div><div class="stat-item-label">Vendor Relationships</div></div>
-        <div class="stat-item"><div class="stat-item-number">All</div><div class="stat-item-label">Asset Classes Covered</div></div>
+      <div class="fade-in delay-2">
+        <div class="hc-hero-card">
+          <div class="hc-hero-header"><div class="hc-hero-header-icon">🔬</div><div><div class="hc-hero-title">Reconciliation Health Check</div><div class="hc-hero-subtitle">Identify what your vendor won't tell you</div></div></div>
+          <div class="hc-items">
+            <div class="hc-item"><div class="hc-item-num">1</div><div class="hc-item-text">AI readiness &amp; match rate assessment</div><span class="hc-item-tag free">Free</span></div>
+            <div class="hc-item"><div class="hc-item-num">2</div><div class="hc-item-text">Current vendor &amp; licensing review</div><span class="hc-item-tag free">Free</span></div>
+            <div class="hc-item"><div class="hc-item-num">3</div><div class="hc-item-text">Data ingestion &amp; quality audit</div><span class="hc-item-tag free">Free</span></div>
+            <div class="hc-item"><div class="hc-item-num">4</div><div class="hc-item-text">Architecture &amp; cloud/SaaS review</div><span class="hc-item-tag premium">Premium</span></div>
+            <div class="hc-item"><div class="hc-item-num">5</div><div class="hc-item-text">ROI &amp; optimisation opportunity report</div><span class="hc-item-tag premium">Premium</span></div>
+            <div class="hc-item"><div class="hc-item-num">6</div><div class="hc-item-text">Vendor selection shortlist in days</div><span class="hc-item-tag premium">Premium</span></div>
+          </div>
+          <div class="hc-footer"><div class="hc-footer-text">Typical vendor selection takes 3 months. ReconIQ does it in days.</div><div class="hc-footer-bar"><div class="hc-footer-fill"></div></div></div>
+        </div>
       </div>
     </div>
   </div>
+</section>
 
-  <section class="bg-section-alt">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-eyebrow">Why ReconIQ</div>
-        <h2 class="section-title">The questions that drive<br><span>every engagement</span></h2>
-        <p class="section-subtitle">We've identified the six questions financial institutions need to answer — and built a consulting practice around answering them faster than anyone else.</p>
-      </div>
-      <div class="grid-3" style="margin-top: 0;">
-        <div class="card fade-in"><div class="card-accent-top" style="background: var(--purple);"></div><div class="icon-circle">🤖</div><div class="service-card-title">AI-Enabled Reconciliations</div><div class="service-card-body">How are your reconciliations AI-enabled? Is it giving you real ROI — or just a vendor promise? We cut through the noise with hard metrics.</div></div>
-        <div class="card fade-in delay-1"><div class="card-accent-top" style="background: var(--teal);"></div><div class="icon-circle">🏥</div><div class="service-card-title">Health Check First</div><div class="service-card-body">Give away the first 3 checks free, keep the rest. Our health check reveals what no vendor will tell you — and becomes the foundation for every decision.</div></div>
-        <div class="card fade-in delay-2"><div class="card-accent-top" style="background: var(--orange);"></div><div class="icon-circle">⏱️</div><div class="service-card-title">Vendor Selection in Days</div><div class="service-card-body">Vendor selection doesn't need to take 3 months. 5 vendors × 3 meetings each + POC cycles = quarter wasted. ReconIQ identifies the right fit in days.</div></div>
-        <div class="card fade-in delay-3"><div class="card-accent-top" style="background: var(--purple);"></div><div class="icon-circle">🔒</div><div class="service-card-title">Vendor-Agnostic Trust</div><div class="service-card-body">Clients will never share their true reconciliation landscape with a vendor — pricing exposure, capability gaps, negotiation leverage. We're the safe alternative.</div></div>
-        <div class="card fade-in delay-1"><div class="card-accent-top" style="background: var(--teal);"></div><div class="icon-circle">💡</div><div class="service-card-title">Do You Know What to Look For?</div><div class="service-card-body">Most institutions lack documented inventory of their reconciliation solutions, costs, automation levels, and true ROI. We help them find it — fast.</div></div>
-        <div class="card fade-in delay-2"><div class="card-accent-top" style="background: var(--orange);"></div><div class="icon-circle">📊</div><div class="service-card-title">Hard ROI, Not Soft Promises</div><div class="service-card-body">Hours saved. Exceptions reduced. Costs avoided. We build the ROI story your finance team needs for investment approval — defensible, independent, measurable.</div></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="space-between" style="margin-bottom: 40px;">
-        <div><div class="section-eyebrow">What We Do</div><h2 class="section-title" style="margin-bottom: 0;">Our Services</h2></div>
-        <button class="btn-secondary" onclick="showPage('services')">View All Services →</button>
-      </div>
-      <div class="grid-3">
-        <div class="service-card"><div class="service-card-num">01</div><div class="service-card-title">Reconciliation Health Check</div><div class="service-card-body">Our flagship entry-point service. Fixed-scope, repeatable assessment that reveals your current state, costs, risks and true technology needs in weeks — not months.</div><div style="margin-top: 16px;"><span class="tag tag-purple">From £3,000</span></div></div>
-        <div class="service-card"><div class="service-card-num">02</div><div class="service-card-title">Process Design &amp; Architecture</div><div class="service-card-body">Target operating model design, future-state architecture, gap analysis and business case development with measurable ROI for investment approval.</div><div style="margin-top: 16px;"><span class="tag tag-teal">2–6 Weeks</span></div></div>
-        <div class="service-card"><div class="service-card-num">03</div><div class="service-card-title">Vendor Selection Advisory</div><div class="service-card-body">Vendor-agnostic evaluation across IntelliMatch, AutoRek, SmartStream, Broadridge, Calixys and emerging platforms. Right fit in days, not months.</div><div style="margin-top: 16px;"><span class="tag tag-orange">~£2,000/day</span></div></div>
-        <div class="service-card"><div class="service-card-num">04</div><div class="service-card-title">Solution Architecture &amp; Design</div><div class="service-card-body">Robust design for complex multi-system environments spanning cash, trading, funds and general ledger. OnPrem, SaaS, and cloud-native architectures.</div><div style="margin-top: 16px;"><span class="tag tag-purple">Bespoke</span></div></div>
-        <div class="service-card"><div class="service-card-num">05</div><div class="service-card-title">Implementation &amp; Integration</div><div class="service-card-body">Expert delivery across all project phases — configuration, integration, testing and go-live support.</div><div style="margin-top: 16px;"><span class="tag tag-teal">2–3 Months</span></div></div>
-        <div class="service-card"><div class="service-card-num">06</div><div class="service-card-title">Training &amp; BAU Support</div><div class="service-card-body">Comprehensive training for admins, superusers and end-users. Reconciliation CoE design, governance models, and ongoing BAU support post go-live.</div><div style="margin-top: 16px;"><span class="tag tag-orange">Ongoing</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-section-alt">
-    <div class="container">
-      <div class="space-between" style="margin-bottom: 40px;">
-        <div><div class="section-eyebrow">Proven Track Record</div><h2 class="section-title" style="margin-bottom: 0;">Client Results</h2></div>
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 12px;">
-        <div class="use-case-row"><div><span class="tag tag-purple">BUY SIDE</span><div class="use-case-client" style="margin-top: 8px;">Middle East Sovereign Wealth Fund</div></div><div><div class="use-case-title">Multi-System Portfolio Reconciliation</div><div class="text-small text-mid">Manual Excel-based processes across derivatives, fixed income, equities and private equity</div></div><div><div class="use-case-outcome-label">Outcome</div><div class="use-case-result">13 automated reconciliation types including 3-way framework across Eagle, Sophis and eFront</div></div></div>
-        <div class="use-case-row"><div><span class="tag tag-orange">SELL SIDE</span><div class="use-case-client" style="margin-top: 8px;">Australian Investment Bank</div></div><div><div class="use-case-title">Trade Reconciliation Transformation</div><div class="text-small text-mid">Control weaknesses across 30 trading systems creating audit findings</div></div><div><div class="use-case-outcome-label">Outcome</div><div class="use-case-result">Daily automated reconciliations with complete trade visibility and future-ready control framework</div></div></div>
-        <div class="use-case-row"><div><span class="tag tag-teal">GLOBAL BANK</span><div class="use-case-client" style="margin-top: 8px;">Dutch Global Financial Institution</div></div><div><div class="use-case-title">P&amp;L Reconciliation &amp; Governance</div><div class="text-small text-mid">Manual P&amp;L reconciliation across global systems with fragmented ownership</div></div><div><div class="use-case-outcome-label">Outcome</div><div class="use-case-result">Faster reconciliation cycles via IntelliMatch automation with structured governance framework</div></div></div>
-        <div class="use-case-row"><div><span class="tag tag-purple">BUY SIDE</span><div class="use-case-client" style="margin-top: 8px;">South African Asset Manager</div></div><div><div class="use-case-title">Client Asset &amp; Money Reconciliation</div><div class="text-small text-mid">Inconsistent reconciliations across client money and asset systems causing regulatory risk</div></div><div><div class="use-case-outcome-label">Outcome</div><div class="use-case-result">Accurate, timely reconciliations with enhanced governance and full client self-service capability</div></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="space-between" style="margin-bottom: 40px;">
-        <div><div class="section-eyebrow">Latest Thinking</div><h2 class="section-title" style="margin-bottom: 0;">Insights &amp; News</h2></div>
-        <button class="btn-secondary" onclick="showPage('newsroom')">View Newsroom →</button>
-      </div>
-      <div class="grid-3">
-        <div class="blog-card" onclick="showPage('newsroom')"><div class="blog-card-body"><div class="blog-card-meta"><span class="tag tag-purple">Insight</span><span class="blog-card-date">Mar 2026</span></div><div class="blog-card-title">Before You Buy AI for Reconciliation, Ask This One Question</div><div class="blog-card-excerpt">AI without context destroys value. Before evaluating any AI-enabled reconciliation tool, you need to understand your current match rates, data quality, and what 'improvement' actually means.</div></div><div class="blog-card-author"><div class="blog-card-avatar">MM</div><span class="blog-card-author-name">Marc McCarthy · Director &amp; Founder</span></div></div>
-        <div class="blog-card" onclick="showPage('newsroom')"><div class="blog-card-body"><div class="blog-card-meta"><span class="tag tag-teal">Opinion</span><span class="blog-card-date">Feb 2026</span></div><div class="blog-card-title">Best Practice Isn't One-Size-Fits-All</div><div class="blog-card-excerpt">Treating best practice as a fixed rulebook rather than a flexible guide is where organisations get stuck. Best practice should be moulded to fit your organisation, not forced onto it.</div></div><div class="blog-card-author"><div class="blog-card-avatar">MM</div><span class="blog-card-author-name">Marc McCarthy · Director &amp; Founder</span></div></div>
-        <div class="blog-card" onclick="showPage('newsroom')"><div class="blog-card-body"><div class="blog-card-meta"><span class="tag tag-orange">Press</span><span class="blog-card-date">Jan 2026</span></div><div class="blog-card-title">ReconIQ &amp; RECTECHX Announce Strategic Partnership</div><div class="blog-card-excerpt">ReconIQ Limited and RECTECHX Inc. announce a new strategic partnership to deliver world-class reconciliation consulting across the UK, EU, Canada, USA, and the Middle East.</div></div><div class="blog-card-author"><div class="blog-card-avatar">MM</div><span class="blog-card-author-name">Marc McCarthy · Director &amp; Founder</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="cta-band">
-    <div class="container" style="position: relative;">
-      <div class="section-eyebrow" style="text-align: center; color: #D4BBFF;">Get Started Today</div>
-      <h2 class="section-title" style="text-align: center; font-size: 36px;">Ready to find out what your reconciliations<br>are really costing you?</h2>
-      <p style="text-align: center; font-size: 16px; color: #D4BBFF; margin-bottom: 32px; max-width: 560px; margin-left: auto; margin-right: auto;">Book a free 30-minute Health Check call. No vendor agenda. No sales pitch. Just an honest assessment of where you stand.</p>
-      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-        <button class="btn-primary" style="font-size: 15px; padding: 13px 28px;" onclick="showPage('services')">🔍 Book Free Health Check Call</button>
-        <button class="btn-secondary" style="font-size: 15px; padding: 13px 28px; border-color: rgba(255,255,255,0.3); color: white;" onclick="showPage('resources')">Download Buyer's Guide →</button>
-      </div>
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item"><div class="stat-item-number">20<span>+</span></div><div class="stat-item-label">Years Experience</div></div>
+      <div class="stat-item"><div class="stat-item-number">50<span>+</span></div><div class="stat-item-label">Client Engagements</div></div>
+      <div class="stat-item"><div class="stat-item-number">30<span>+</span></div><div class="stat-item-label">Vendor Relationships</div></div>
+      <div class="stat-item"><div class="stat-item-number">All</div><div class="stat-item-label">Asset Classes Covered</div></div>
     </div>
   </div>
+</div>
 
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-logo">
-            <img src="be4a7995-bab6-4608-9a78-b3199af90d27.jpg" alt="ReconIQ" class="logo-svg" style="border-radius:4px;">
-            <div class="nav-brand">ReconIQ</div>
-          </div>
-          <p class="footer-tagline">Specialist reconciliation consulting services. Vendor-agnostic. Delivery-focused. Reconciliations mastered.</p>
-          <div class="footer-contact">
-            <a href="tel:+447376229996">+44 (0) 07376 229996</a>
-            <a href="/cdn-cgi/l/email-protection#d9b0b7bfb699abbcbab6b7b0a8f7bab6"><span class="__cf_email__" data-cfemail="e38a8d858ca39186808c8d8a92cd808c">[email&#160;protected]</span></a>
-            <a href="https://www.reconiq.co">www.reconiq.co</a>
-          </div>
-        </div>
-        <div>
-          <div class="footer-heading">Services</div>
-          <ul class="footer-links">
-            <li><button onclick="showPage('services')">Reconciliation Health Check</button></li>
-            <li><button onclick="showPage('services')">Process Design &amp; Architecture</button></li>
-            <li><button onclick="showPage('services')">Vendor Selection Advisory</button></li>
-            <li><button onclick="showPage('services')">Implementation &amp; Integration</button></li>
-            <li><button onclick="showPage('services')">Training &amp; BAU Support</button></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer-heading">Company</div>
-          <ul class="footer-links">
-            <li><button onclick="showPage('about')">About Us</button></li>
-            <li><button onclick="showPage('newsroom')">Newsroom</button></li>
-            <li><button onclick="showPage('resources')">Resources</button></li>
-            <li><button onclick="showPage('partners')">Partners</button></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer-heading">Markets</div>
-          <ul class="footer-links">
-            <li><a href="#">Investment Banking</a></li>
-            <li><a href="#">Asset Management</a></li>
-            <li><a href="#">Sovereign Wealth</a></li>
-            <li><a href="#">Fund Administration</a></li>
-            <li><a href="#">Insurance</a></li>
-            <li><a href="#">FinTech</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div class="footer-legal">© 2026 ReconIQ Ltd. All rights reserved. · Registered in England &amp; Wales, Company No. 16875234 · <a href="#" style="color: inherit;">Privacy Policy</a></div>
-        <div class="footer-socials">
-          <div class="social-btn" title="LinkedIn">in</div>
-          <div class="social-btn" title="Twitter/X">𝕏</div>
-        </div>
-      </div>
+<section class="bg-section-alt">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">Why ReconIQ</div>
+      <h2 class="section-title">The questions that drive<br><span>every engagement</span></h2>
+      <p class="section-subtitle">We've identified the six questions financial institutions need to answer — and built a consulting practice around answering them faster than anyone else.</p>
     </div>
-  </footer>
-</div><!-- /home -->
-
-
-<!-- PAGE: ABOUT -->
-<div id="page-about" class="page">
-  <div class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="container">
-      <div class="section-eyebrow">About ReconIQ</div>
-      <h1 class="section-title" style="font-size: 48px; max-width: 700px;">The reconciliation<br>specialists <span>who've seen it all</span></h1>
-      <p style="font-size: 17px; color: var(--mid-gray); max-width: 600px; line-height: 1.75; margin-top: 16px;">Founded by practitioners who've delivered at the world's largest financial institutions — we bring 20+ years of hands-on expertise, 30+ vendor relationships, and a vendor-agnostic perspective that nobody else can match.</p>
+    <div class="grid-3">
+      <div class="card fade-in"><div class="card-accent-top" style="background:var(--purple);"></div><div class="icon-circle">🤖</div><div class="service-card-title">AI-Enabled Reconciliations</div><div class="service-card-body">How are your reconciliations AI-enabled? Is it giving you real ROI — or just a vendor promise? We cut through the noise with hard metrics.</div></div>
+      <div class="card fade-in delay-1"><div class="card-accent-top" style="background:var(--teal);"></div><div class="icon-circle">🏥</div><div class="service-card-title">Health Check First</div><div class="service-card-body">Give away the first 3 checks free, keep the rest. Our health check reveals what no vendor will tell you — and becomes the foundation for every decision.</div></div>
+      <div class="card fade-in delay-2"><div class="card-accent-top" style="background:var(--orange);"></div><div class="icon-circle">⏱️</div><div class="service-card-title">Vendor Selection in Days</div><div class="service-card-body">Vendor selection doesn't need to take 3 months. 5 vendors × 3 meetings each + POC cycles = quarter wasted. ReconIQ identifies the right fit in days.</div></div>
+      <div class="card fade-in delay-3"><div class="card-accent-top" style="background:var(--purple);"></div><div class="icon-circle">🔒</div><div class="service-card-title">Vendor-Agnostic Trust</div><div class="service-card-body">Clients will never share their true reconciliation landscape with a vendor — pricing exposure, capability gaps, negotiation leverage. We're the safe alternative.</div></div>
+      <div class="card fade-in delay-1"><div class="card-accent-top" style="background:var(--teal);"></div><div class="icon-circle">💡</div><div class="service-card-title">Do You Know What to Look For?</div><div class="service-card-body">Most institutions lack documented inventory of their reconciliation solutions, costs, automation levels, and true ROI. We help them find it — fast.</div></div>
+      <div class="card fade-in delay-2"><div class="card-accent-top" style="background:var(--orange);"></div><div class="icon-circle">📊</div><div class="service-card-title">Hard ROI, Not Soft Promises</div><div class="service-card-body">Hours saved. Exceptions reduced. Costs avoided. We build the ROI story your finance team needs for investment approval — defensible, independent, measurable.</div></div>
     </div>
   </div>
-  <section>
-    <div class="container">
-      <div class="grid-2" style="gap: 64px; align-items: center;">
-        <div>
-          <div class="section-eyebrow">Our Mission</div>
-          <h2 class="section-title">Decision-enablement,<br>not just consulting</h2>
-          <p style="font-size: 15px; color: var(--mid-gray); line-height: 1.75; margin-bottom: 20px;">Financial institutions are navigating a rapidly changing reconciliation landscape — new AI capabilities, proliferating vendors, and increasing regulatory pressure. Yet most lack a consolidated, independent view of their own reconciliation estate.</p>
-          <p style="font-size: 15px; color: var(--mid-gray); line-height: 1.75; margin-bottom: 24px;">ReconIQ was built to fill that gap. We're not another consultancy — we're a <strong style="color: var(--white);">decision-enablement partner</strong> who helps institutions understand what they have, what they need, and how to get there with confidence.</p>
-          <div class="highlight-box">
-            <p style="font-size: 14px; color: var(--light-gray); line-height: 1.7; font-style: italic;">"Clients will never give a vendor sales manager an honest picture of their reconciliation landscape — fear of pricing exposure, fear of giving away negotiation leverage. ReconIQ is the trusted alternative."</p>
-            <p style="font-size: 12px; color: var(--mid-gray); margin-top: 10px;">— Marc McCarthy, Director &amp; Founder</p>
-          </div>
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-          <div class="stat-box"><div class="stat-number">20+</div><div class="stat-label">Years Experience</div></div>
-          <div class="stat-box"><div class="stat-number">50+</div><div class="stat-label">Engagements</div></div>
-          <div class="stat-box"><div class="stat-number">30+</div><div class="stat-label">Vendor Relationships</div></div>
-          <div class="stat-box"><div class="stat-number">All</div><div class="stat-label">Asset Classes</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="bg-section-alt">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-eyebrow">Our Differentiation</div>
-        <h2 class="section-title">Why institutions choose<br><span>ReconIQ over anyone else</span></h2>
-      </div>
-      <div class="grid-2" style="gap: 16px;">
-        <div class="value-card"><div class="value-icon">🛡️</div><div><div class="value-title">Genuinely Vendor-Agnostic</div><div class="value-body">We have no commercial relationships with vendors that influence our recommendations. Our only agenda is finding the right fit for you.</div></div></div>
-        <div class="value-card"><div class="value-icon">⚡</div><div><div class="value-title">Depth Across the Full Stack</div><div class="value-body">Business process, data architecture, technology implementation, and operational governance. We don't just advise — we deliver.</div></div></div>
-        <div class="value-card"><div class="value-icon">🎯</div><div><div class="value-title">Hard ROI, Not Soft Narratives</div><div class="value-body">We translate technical findings into defensible, independent ROI metrics — the kind that support funding approvals and investment cases.</div></div></div>
-        <div class="value-card"><div class="value-icon">🏗️</div><div><div class="value-title">Productised Engagements</div><div class="value-body">Our Health Checks are fixed-scope, fixed-price, and repeatable. Clients know exactly what they're buying — easy to approve, quick to mobilise.</div></div></div>
-      </div>
-    </div>
-  </section>
-  <section>
-    <div class="container">
-      <div class="section-header">
-        <div class="section-eyebrow">Our Team</div>
-        <h2 class="section-title">World-class reconciliation<br><span>specialists</span></h2>
-        <p class="section-subtitle">Our consultants bring hands-on experience from the world's leading banks, asset managers, and financial technology firms.</p>
-      </div>
-      <div class="grid-3">
-        <div class="team-card"><div class="team-card-header"><div class="team-avatar">MM</div><div class="team-name">Marc McCarthy</div><div class="team-role">Director &amp; Founder</div></div><div class="team-card-body"><ul class="team-skill-list"><li>Internationally acclaimed reconciliation specialist</li><li>End-to-end recon across all asset classes and industries</li><li>Finance transformation and Target Operating Model design</li><li>Systems: IntelliMatch · SmartStream · AutoRek</li><li>Advises software vendors on product and commercial strategy</li><li>30+ years of delivery at global financial institutions</li></ul></div></div>
-        <div class="team-card"><div class="team-card-header"><div class="team-avatar">IC</div><div class="team-name">Iain Colquhoun</div><div class="team-role">Principal Consultant</div></div><div class="team-card-body"><ul class="team-skill-list"><li>Enterprise data architecture for global financial institutions</li><li>Regulatory compliance · back/middle office integrity</li><li>IntelliMatch · AutoRek · Broadridge · Calixys · SmartStream</li><li>Full project lifecycle — design through to BAU</li><li>Extensive experience with leading international banks</li></ul></div></div>
-        <div class="team-card"><div class="team-card-header"><div class="team-avatar">★</div><div class="team-name">Senior Consultant</div><div class="team-role">Reconciliation Specialist</div></div><div class="team-card-body"><ul class="team-skill-list"><li>Deep expertise in capital markets and asset management</li><li>Trade lifecycle, position recon, settlement &amp; exception management</li><li>Buy-side and sell-side across multiple asset classes</li><li>Requirements definition, system configuration, UAT</li><li>Delivering sustainable, client-owned solutions</li></ul></div></div>
-      </div>
-    </div>
-  </section>
-  <div class="cta-band">
-    <div class="container" style="position: relative;">
-      <h2 class="section-title" style="text-align: center; font-size: 32px;">Want to understand ReconIQ's approach?</h2>
-      <p style="text-align: center; color: #D4BBFF; margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto;">Book a free 30-minute call with Marc to discuss your reconciliation challenges — no strings attached.</p>
-      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-        <button class="btn-primary" onclick="showPage('services')">Schedule a Free Call</button>
-        <button class="btn-secondary" style="border-color: rgba(255,255,255,0.3); color: white;" onclick="showPage('services')">View Services</button>
-      </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="space-between" style="margin-bottom:40px;"><div><div class="section-eyebrow">What We Do</div><h2 class="section-title" style="margin-bottom:0;">Our Services</h2></div><a href="services.html" class="btn-secondary">View All Services →</a></div>
+    <div class="grid-3">
+      <div class="service-card"><div class="service-card-num">01</div><div class="service-card-title">Reconciliation Health Check</div><div class="service-card-body">Our flagship entry-point service. Fixed-scope, repeatable assessment that reveals your current state, costs, risks and true technology needs in weeks — not months.</div><div style="margin-top:16px;"><span class="tag tag-purple">From £3,000</span></div></div>
+      <div class="service-card"><div class="service-card-num">02</div><div class="service-card-title">Process Design &amp; Architecture</div><div class="service-card-body">Target operating model design, future-state architecture, gap analysis and business case development with measurable ROI for investment approval.</div><div style="margin-top:16px;"><span class="tag tag-teal">2–6 Weeks</span></div></div>
+      <div class="service-card"><div class="service-card-num">03</div><div class="service-card-title">Vendor Selection Advisory</div><div class="service-card-body">Vendor-agnostic evaluation across IntelliMatch, AutoRek, SmartStream, Broadridge, Calixys and emerging platforms. Right fit in days, not months.</div><div style="margin-top:16px;"><span class="tag tag-orange">~£2,000/day</span></div></div>
+      <div class="service-card"><div class="service-card-num">04</div><div class="service-card-title">Solution Architecture &amp; Design</div><div class="service-card-body">Robust design for complex multi-system environments spanning cash, trading, funds and general ledger. OnPrem, SaaS, and cloud-native architectures.</div><div style="margin-top:16px;"><span class="tag tag-purple">Bespoke</span></div></div>
+      <div class="service-card"><div class="service-card-num">05</div><div class="service-card-title">Implementation &amp; Integration</div><div class="service-card-body">Expert delivery across all project phases — configuration, integration, testing and go-live support.</div><div style="margin-top:16px;"><span class="tag tag-teal">2–3 Months</span></div></div>
+      <div class="service-card"><div class="service-card-num">06</div><div class="service-card-title">Training &amp; BAU Support</div><div class="service-card-body">Comprehensive training for admins, superusers and end-users. Reconciliation CoE design, governance models, and ongoing BAU support post go-live.</div><div style="margin-top:16px;"><span class="tag tag-orange">Ongoing</span></div></div>
     </div>
   </div>
-  <footer><div class="container"><div class="footer-bottom" style="border-top: none; padding: 24px 0;"><div class="footer-legal">© 2026 ReconIQ Ltd. All rights reserved. · Registered in England &amp; Wales, Company No. 16875234</div><button class="btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="showPage('home')">← Back to Home</button></div></div></footer>
-</div><!-- /about -->
+</section>
 
-
-<!-- PAGE: SERVICES -->
-<div id="page-services" class="page">
-  <div class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="container">
-      <div class="section-eyebrow">Services</div>
-      <h1 class="section-title" style="font-size: 48px; max-width: 720px;">Structured consulting that delivers <span>measurable outcomes</span></h1>
-      <p style="font-size: 17px; color: var(--mid-gray); max-width: 600px; line-height: 1.75; margin-top: 16px;">From a rapid Health Check to a full-scale transformation. Every engagement is fixed-scope, outcome-focused, and delivered by practitioners who've done it before.</p>
+<section class="bg-section-alt">
+  <div class="container">
+    <div class="space-between" style="margin-bottom:40px;"><div><div class="section-eyebrow">Proven Track Record</div><h2 class="section-title" style="margin-bottom:0;">Client Results</h2></div></div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="use-case-row"><div><span class="tag tag-purple">BUY SIDE</span><div class="use-case-client" style="margin-top:8px;">Middle East Sovereign Wealth Fund</div></div><div><div class="use-case-title">Multi-System Portfolio Reconciliation</div><div class="text-small text-mid">Manual Excel-based processes across derivatives, fixed income, equities and private equity</div></div><div><div class="use-case-outcome-label">Outcome</div><div class="use-case-result">13 automated reconciliation types including 3-way framework across Eagle, Sophis and eFront</div></div></div>
+      <div class="use-case-row"><div><span class="tag tag-orange">SELL SIDE</span><div class="use-case-client" style="margin-top:8px;">Australian Investment Bank</div></div><div><div class="use-case-title">Trade Reconciliation Transformation</div><div class="text-small text-mid">Control weaknesses across 30 trading systems creating audit findings</div></div><div><div class="use-case-outcome-label">Outcome</div><div class="use-case-result">Daily automated reconciliations with complete trade visibility and future-ready control framework</div></div></div>
+      <div class="use-case-row"><div><span class="tag tag-teal">GLOBAL BANK</span><div class="use-case-client" style="margin-top:8px;">Dutch Global Financial Institution</div></div><div><div class="use-case-title">P&amp;L Reconciliation &amp; Governance</div><div class="text-small text-mid">Manual P&amp;L reconciliation across global systems with fragmented ownership</div></div><div><div class="use-case-outcome-label">Outcome</div><div class="use-case-result">Faster reconciliation cycles via IntelliMatch automation with structured governance framework</div></div></div>
+      <div class="use-case-row"><div><span class="tag tag-purple">BUY SIDE</span><div class="use-case-client" style="margin-top:8px;">South African Asset Manager</div></div><div><div class="use-case-title">Client Asset &amp; Money Reconciliation</div><div class="text-small text-mid">Inconsistent reconciliations across client money and asset systems causing regulatory risk</div></div><div><div class="use-case-outcome-label">Outcome</div><div class="use-case-result">Accurate, timely reconciliations with enhanced governance and full client self-service capability</div></div></div>
     </div>
   </div>
-  <section>
-    <div class="container">
-      <div class="hc-featured">
-        <div class="hc-featured-badge">⭐ Flagship Offering</div>
-        <div class="grid-2" style="gap: 48px; align-items: start;">
-          <div>
-            <h2 class="section-title" style="font-size: 34px;">Reconciliation<br>Health Check</h2>
-            <p style="font-size: 15px; color: var(--mid-gray); line-height: 1.75; margin-bottom: 20px;">The core of everything we do. A fixed-scope, repeatable assessment of your current reconciliation estate — covering systems, costs, risks, automation levels, and true technology needs.</p>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px;">
-              <span class="tag tag-teal">2–6 Weeks</span>
-              <span class="tag tag-purple">Fixed Price</span>
-              <span class="tag tag-orange">First 3 Checks Free</span>
-            </div>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-              <button class="btn-primary">🔍 Start Your Health Check</button>
-              <button class="btn-secondary" onclick="showPage('resources')">Download Sample Report</button>
-            </div>
-          </div>
-          <div>
-            <div class="hc-modules">
-              <div class="hc-module"><div class="hc-module-icon">📋</div><div class="hc-module-text">Vendor &amp; solution inventory</div><span class="hc-module-tag tag-teal">Free</span></div>
-              <div class="hc-module"><div class="hc-module-icon">💰</div><div class="hc-module-text">Licensing &amp; cost review</div><span class="hc-module-tag tag-teal">Free</span></div>
-              <div class="hc-module"><div class="hc-module-icon">🎯</div><div class="hc-module-text">Match rate assessment</div><span class="hc-module-tag tag-teal">Free</span></div>
-              <div class="hc-module"><div class="hc-module-icon">🤖</div><div class="hc-module-text">AI readiness review</div><span class="hc-module-tag tag-purple" style="background: var(--purple-dim); color: var(--purple-light); border: 1px solid var(--purple);">Premium</span></div>
-              <div class="hc-module"><div class="hc-module-icon">🏗️</div><div class="hc-module-text">Architecture &amp; cloud review</div><span class="hc-module-tag tag-purple" style="background: var(--purple-dim); color: var(--purple-light); border: 1px solid var(--purple);">Premium</span></div>
-              <div class="hc-module"><div class="hc-module-icon">📊</div><div class="hc-module-text">Data ingestion quality audit</div><span class="hc-module-tag tag-purple" style="background: var(--purple-dim); color: var(--purple-light); border: 1px solid var(--purple);">Premium</span></div>
-              <div class="hc-module"><div class="hc-module-icon">📈</div><div class="hc-module-text">ROI &amp; optimisation report</div><span class="hc-module-tag tag-purple" style="background: var(--purple-dim); color: var(--purple-light); border: 1px solid var(--purple);">Premium</span></div>
-              <div class="hc-module"><div class="hc-module-icon">🎪</div><div class="hc-module-text">Vendor shortlist in days</div><span class="hc-module-tag tag-purple" style="background: var(--purple-dim); color: var(--purple-light); border: 1px solid var(--purple);">Premium</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="bg-section-alt">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-eyebrow">Our Methodology</div>
-        <h2 class="section-title">A structured, proven<br><span>path to transformation</span></h2>
-      </div>
-      <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;">
-        <div class="process-steps">
-          <div class="process-step"><div class="process-circle">01</div><div class="process-label">Diagnose</div><div class="process-desc">Current state audit. Systems, costs, match rates, control gaps.</div></div>
-          <div class="process-step"><div class="process-circle">02</div><div class="process-label">Design</div><div class="process-desc">Future-state architecture. Data models and reconciliation framework.</div></div>
-          <div class="process-step"><div class="process-circle">03</div><div class="process-label">Select</div><div class="process-desc">Vendor-agnostic platform evaluation and recommendation.</div></div>
-          <div class="process-step"><div class="process-circle">04</div><div class="process-label">Implement</div><div class="process-desc">Expert configuration, integration, testing and go-live.</div></div>
-          <div class="process-step"><div class="process-circle">05</div><div class="process-label">Empower</div><div class="process-desc">Training, documentation and post go-live BAU support.</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section>
-    <div class="container">
-      <div class="section-header">
-        <div class="section-eyebrow">Full Service Offering</div>
-        <h2 class="section-title">End-to-End Reconciliation<br><span>Consulting</span></h2>
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 16px;">
-        <div class="service-detail"><div class="service-detail-header"><div class="icon-circle" style="margin-bottom: 0;">📐</div><div><div style="font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--white);">Process Design &amp; Architecture</div><div style="font-size: 13px; color: var(--mid-gray);">2–6 weeks · Fixed price · Includes business case development</div></div><span class="tag tag-purple" style="margin-left: auto;">From £8,000</span></div><div class="service-detail-body"><p style="font-size: 14px; color: var(--mid-gray); line-height: 1.7; margin-bottom: 16px;">Current-state assessment, future-state architecture design, gap analysis and business case development including Target Operating Model recommendations with measurable ROI metrics.</p><div style="display: flex; gap: 8px; flex-wrap: wrap;"><span class="tag tag-teal">Current State Assessment</span><span class="tag tag-teal">TOM Design</span><span class="tag tag-teal">Gap Analysis</span><span class="tag tag-teal">Business Case</span><span class="tag tag-teal">ROI Modelling</span></div></div></div>
-        <div class="service-detail"><div class="service-detail-header"><div class="icon-circle" style="margin-bottom: 0;">🔍</div><div><div style="font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--white);">Vendor Selection Advisory</div><div style="font-size: 13px; color: var(--mid-gray);">Days not months · Vendor-agnostic · 30+ vendor relationships</div></div><span class="tag tag-teal" style="margin-left: auto;">~£2,000/day</span></div><div class="service-detail-body"><p style="font-size: 14px; color: var(--mid-gray); line-height: 1.7; margin-bottom: 16px;">Vendor-agnostic advisory across IntelliMatch, AutoRek, SmartStream, Broadridge, Calixys and all emerging platforms. Right fit in days through our structured evaluation methodology.</p><div style="display: flex; gap: 8px; flex-wrap: wrap;"><span class="tag tag-purple">IntelliMatch</span><span class="tag tag-purple">AutoRek</span><span class="tag tag-purple">SmartStream</span><span class="tag tag-purple">Broadridge</span><span class="tag tag-purple">Calixys</span><span class="tag tag-orange">+ RFP Templates</span></div></div></div>
-        <div class="service-detail"><div class="service-detail-header"><div class="icon-circle" style="margin-bottom: 0;">⚙️</div><div><div style="font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--white);">Implementation &amp; Integration</div><div style="font-size: 13px; color: var(--mid-gray);">2–3 months · Expert delivery · Configuration through go-live</div></div><span class="tag tag-orange" style="margin-left: auto;">Bespoke</span></div><div class="service-detail-body"><p style="font-size: 14px; color: var(--mid-gray); line-height: 1.7; margin-bottom: 16px;">Expert delivery across all project phases — requirements, data mapping, configuration, integration, testing, and go-live support.</p><div style="display: flex; gap: 8px; flex-wrap: wrap;"><span class="tag tag-teal">Requirements</span><span class="tag tag-teal">Data Mapping</span><span class="tag tag-teal">Configuration</span><span class="tag tag-teal">UAT &amp; Testing</span><span class="tag tag-teal">Go-Live Support</span></div></div></div>
-        <div class="service-detail"><div class="service-detail-header"><div class="icon-circle" style="margin-bottom: 0;">🎓</div><div><div style="font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--white);">Training &amp; BAU Support</div><div style="font-size: 13px; color: var(--mid-gray);">Ongoing · On-site or remote · CoE design &amp; governance</div></div><span class="tag tag-teal" style="margin-left: auto;">Ongoing</span></div><div class="service-detail-body"><p style="font-size: 14px; color: var(--mid-gray); line-height: 1.7; margin-bottom: 16px;">Comprehensive training programmes for admins, superusers and end-users. Reconciliation CoE design, governance model development, and BAU support post go-live.</p><div style="display: flex; gap: 8px; flex-wrap: wrap;"><span class="tag tag-teal">User Training</span><span class="tag tag-teal">CoE Design</span><span class="tag tag-teal">Governance Models</span><span class="tag tag-teal">Process Documentation</span></div></div></div>
-      </div>
-    </div>
-  </section>
-  <section class="bg-section-alt">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-eyebrow">Transparent Pricing</div>
-        <h2 class="section-title">Health Check<br><span>Packages</span></h2>
-        <p class="section-subtitle">Productised, fixed-price engagements. No surprises. Start free, scale as needed.</p>
-      </div>
-      <div class="grid-3">
-        <div class="pricing-card"><div class="pricing-name">Starter Check</div><p style="font-size: 13px; color: var(--mid-gray); margin-bottom: 8px;">Three complimentary modules to start the conversation.</p><div class="pricing-price">Free</div><div class="pricing-price-sub">No commitment required</div><ul class="pricing-features"><li><span class="pricing-check">✓</span> Vendor &amp; solution inventory</li><li><span class="pricing-check">✓</span> Licensing &amp; cost review</li><li><span class="pricing-check">✓</span> Match rate baseline assessment</li><li style="color: var(--dim-gray);"><span style="color: var(--dim-gray); font-size: 12px;">—</span> AI readiness review</li><li style="color: var(--dim-gray);"><span style="color: var(--dim-gray); font-size: 12px;">—</span> Architecture review</li></ul><button class="btn-secondary" style="width: 100%; justify-content: center;">Book Free Call</button></div>
-        <div class="pricing-card featured"><div class="pricing-name">Full Health Check</div><p style="font-size: 13px; color: var(--mid-gray); margin-bottom: 8px;">Complete assessment with full ROI report and recommendations.</p><div class="pricing-price">£6,000</div><div class="pricing-price-sub">Fixed price · 2–3 weeks · Standalone deliverable</div><ul class="pricing-features"><li><span class="pricing-check">✓</span> Everything in Starter</li><li><span class="pricing-check">✓</span> AI readiness &amp; match rate deep-dive</li><li><span class="pricing-check">✓</span> Data ingestion &amp; quality audit</li><li><span class="pricing-check">✓</span> Architecture &amp; cloud/SaaS review</li><li><span class="pricing-check">✓</span> ROI &amp; optimisation report</li><li><span class="pricing-check">✓</span> Vendor shortlist recommendation</li></ul><button class="btn-primary" style="width: 100%; justify-content: center;">Start Full Check</button></div>
-        <div class="pricing-card"><div class="pricing-name">Enterprise Programme</div><p style="font-size: 13px; color: var(--mid-gray); margin-bottom: 8px;">Full transformation from health check through to implementation.</p><div class="pricing-price">Bespoke</div><div class="pricing-price-sub">~£2,000/day · 2–3 month engagement</div><ul class="pricing-features"><li><span class="pricing-check">✓</span> Everything in Full Check</li><li><span class="pricing-check">✓</span> Process design &amp; architecture</li><li><span class="pricing-check">✓</span> Vendor selection advisory</li><li><span class="pricing-check">✓</span> RFP development &amp; management</li><li><span class="pricing-check">✓</span> Implementation support</li><li><span class="pricing-check">✓</span> CoE design &amp; BAU handover</li></ul><button class="btn-secondary" style="width: 100%; justify-content: center;">Discuss Programme</button></div>
-      </div>
-    </div>
-  </section>
-  <div class="cta-band">
-    <div class="container" style="position: relative;">
-      <h2 class="section-title" style="text-align: center; font-size: 32px;">Ready to start?</h2>
-      <p style="text-align: center; color: #D4BBFF; margin-bottom: 28px;">Schedule a free 30-minute call to discuss your needs. No obligation.</p>
-      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-        <a href="/cdn-cgi/l/email-protection#31585f575e714354525e5f58401f525e" class="btn-primary">📧 Email <span class="__cf_email__" data-cfemail="acc5c2cac3ecdec9cfc3c2c5dd82cfc3">[email&#160;protected]</span></a>
-        <a href="tel:+447376229996" class="btn-secondary" style="border-color: rgba(255,255,255,0.3); color: white;">📞 +44 (0) 07376 229996</a>
-      </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="space-between" style="margin-bottom:40px;"><div><div class="section-eyebrow">Latest Thinking</div><h2 class="section-title" style="margin-bottom:0;">Insights &amp; News</h2></div><a href="newsroom.html" class="btn-secondary">View Newsroom →</a></div>
+    <div class="grid-3">
+      <a href="newsroom.html" class="blog-card"><div class="blog-card-body"><div class="blog-card-meta"><span class="tag tag-purple">Insight</span><span class="blog-card-date">Mar 2026</span></div><div class="blog-card-title">Before You Buy AI for Reconciliation, Ask This One Question</div><div class="blog-card-excerpt">AI without context destroys value. Before evaluating any AI-enabled reconciliation tool, you need to understand your current match rates and data quality.</div></div><div class="blog-card-author"><div class="blog-card-avatar">MM</div><span class="blog-card-author-name">Marc McCarthy · Director &amp; Founder</span></div></a>
+      <a href="newsroom.html" class="blog-card"><div class="blog-card-body"><div class="blog-card-meta"><span class="tag tag-teal">Opinion</span><span class="blog-card-date">Feb 2026</span></div><div class="blog-card-title">Best Practice Isn't One-Size-Fits-All</div><div class="blog-card-excerpt">Treating best practice as a fixed rulebook rather than a flexible guide is where organisations get stuck.</div></div><div class="blog-card-author"><div class="blog-card-avatar">MM</div><span class="blog-card-author-name">Marc McCarthy · Director &amp; Founder</span></div></a>
+      <a href="newsroom.html" class="blog-card"><div class="blog-card-body"><div class="blog-card-meta"><span class="tag tag-orange">Press</span><span class="blog-card-date">Jan 2026</span></div><div class="blog-card-title">ReconIQ &amp; RECTECHX Announce Strategic Partnership</div><div class="blog-card-excerpt">ReconIQ Limited and RECTECHX Inc. announce a new strategic partnership across the UK, EU, Canada, USA, and the Middle East.</div></div><div class="blog-card-author"><div class="blog-card-avatar">MM</div><span class="blog-card-author-name">Marc McCarthy · Director &amp; Founder</span></div></a>
     </div>
   </div>
-  <footer><div class="container"><div class="footer-bottom" style="border-top: none; padding: 24px 0;"><div class="footer-legal">© 2026 ReconIQ Ltd. All rights reserved.</div><button class="btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="showPage('home')">← Home</button></div></div></footer>
-</div><!-- /services -->
+</section>
 
-
-<!-- PAGE: NEWSROOM -->
-<div id="page-newsroom" class="page">
-  <div class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="container">
-      <div class="section-eyebrow">Newsroom</div>
-      <h1 class="section-title" style="font-size: 48px; max-width: 640px;">Insights, opinion &amp;<br><span>press from ReconIQ</span></h1>
-      <p style="font-size: 17px; color: var(--mid-gray); max-width: 560px; line-height: 1.75; margin-top: 16px;">Expert thinking on reconciliation technology, AI integration, vendor selection, and financial operations from the team that's seen every challenge in the industry.</p>
+<div class="cta-band">
+  <div class="container" style="position:relative;">
+    <div class="section-eyebrow" style="text-align:center;color:#D4BBFF;">Get Started Today</div>
+    <h2 class="section-title" style="text-align:center;font-size:36px;">Ready to find out what your reconciliations are really costing you?</h2>
+    <p style="text-align:center;font-size:16px;color:#D4BBFF;margin-bottom:32px;max-width:560px;margin-left:auto;margin-right:auto;">Book a free 30-minute Health Check call. No vendor agenda. No sales pitch. Just an honest assessment of where you stand.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="services.html" class="btn-primary" style="font-size:15px;padding:13px 28px;">🔍 Book Free Health Check Call</a>
+      <a href="resources.html" class="btn-secondary" style="font-size:15px;padding:13px 28px;border-color:rgba(255,255,255,0.3);color:white;">Download Buyer's Guide →</a>
     </div>
   </div>
-  <section>
-    <div class="container">
-      <div class="news-featured">
-        <div class="news-featured-content">
-          <div><span class="tag tag-purple">Insight</span> <span style="font-size: 12px; color: var(--mid-gray); margin-left: 8px;">March 2026</span></div>
-          <div class="news-featured-title">Before You Buy AI for Reconciliation,<br>Ask This One Question</div>
-          <p class="news-featured-excerpt">AI without context destroys value. Before evaluating any AI-enabled reconciliation tool, you need to understand your current match rates, data quality, and what 'improvement' actually means for your organisation.</p>
-          <div class="blog-card-author" style="padding: 0;"><div class="blog-card-avatar">MM</div><span style="font-size: 13px; color: var(--mid-gray);">Marc McCarthy · Director &amp; Founder</span></div>
-        </div>
-        <div class="news-featured-visual"><div class="news-visual-icon">🤖</div></div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="footer-logo"><img src="be4a7995-bab6-4608-9a78-b3199af90d27.jpg" alt="ReconIQ" class="logo-svg" style="border-radius:4px;"><div class="nav-brand">ReconIQ</div></a>
+        <p class="footer-tagline">Specialist reconciliation consulting services. Vendor-agnostic. Delivery-focused. Reconciliations mastered.</p>
+        <div class="footer-contact"><a href="tel:+447376229996">+44 (0) 07376 229996</a><a href="mailto:info@reconiq.co">info@reconiq.co</a><a href="https://www.reconiq.co">www.reconiq.co</a></div>
       </div>
-      <div class="section-eyebrow" style="margin-bottom: 24px;">Recent Articles</div>
-      <div class="grid-3" style="margin-bottom: 56px;">
-        <div class="blog-card"><div class="blog-card-body"><div class="blog-card-meta"><span class="tag tag-teal">Opinion</span><span class="blog-card-date">Feb 2026</span></div><div class="blog-card-title">Best Practice Isn't One-Size-Fits-All</div><div class="blog-card-excerpt">Treating best practice as a fixed rulebook rather than a flexible guide is where organisations get stuck. Best practice should be moulded to fit your organisation, not forced onto it.</div></div><div class="blog-card-author"><div class="blog-card-avatar">MM</div><span class="blog-card-author-name">Marc McCarthy</span></div></div>
-        <div class="blog-card"><div class="blog-card-body"><div class="blog-card-meta"><span class="tag tag-purple">Strategy</span><span class="blog-card-date">Feb 2026</span></div><div class="blog-card-title">How to Reduce Your Vendor Selection Cycle from 3 Months to 3 Days</div><div class="blog-card-excerpt">Five vendors × three meetings each. Then the POC cycle. Then procurement. There's a better way — starting with knowing what you actually need before you go to market.</div></div><div class="blog-card-author"><div class="blog-card-avatar">MM</div><span class="blog-card-author-name">Marc McCarthy</span></div></div>
-        <div class="blog-card"><div class="blog-card-body"><div class="blog-card-meta"><span class="tag tag-orange">Technology</span><span class="blog-card-date">Jan 2026</span></div><div class="blog-card-title">The Mid-Tier Asset Manager's Reconciliation Problem</div><div class="blog-card-excerpt">Mid-tier asset managers are the underserved segment of reconciliation consulting. Fast decisions, fewer systems, high pain — a very different set of needs to a global investment bank.</div></div><div class="blog-card-author"><div class="blog-card-avatar">MM</div><span class="blog-card-author-name">Marc McCarthy</span></div></div>
-      </div>
-      <div class="section-eyebrow" style="margin-bottom: 24px;">Press Releases</div>
-      <div class="press-release"><div class="press-release-date"><div class="press-date-day">20</div><div class="press-date-month">Jan 2026</div></div><div style="flex: 1; border-left: 1px solid var(--border); padding-left: 20px;"><div class="press-release-title">ReconIQ and RECTECHX Announce Strategic Partnership</div><div class="press-release-body">ReconIQ Limited and RECTECHX Inc. announce a new strategic partnership to deliver world-class reconciliation consulting across the UK, EU, Canada, USA, and the Middle East.</div></div><div class="press-release-arrow">→</div></div>
-      <div class="press-release"><div class="press-release-date"><div class="press-date-day">15</div><div class="press-date-month">Dec 2025</div></div><div style="flex: 1; border-left: 1px solid var(--border); padding-left: 20px;"><div class="press-release-title">ReconIQ Launches Reconciliation Health Check as Primary Go-to-Market Service</div><div class="press-release-body">ReconIQ announces the formal launch of its productised Reconciliation Health Check service — a fixed-scope, vendor-agnostic assessment.</div></div><div class="press-release-arrow">→</div></div>
-      <div class="press-release"><div class="press-release-date"><div class="press-date-day">02</div><div class="press-date-month">Nov 2025</div></div><div style="flex: 1; border-left: 1px solid var(--border); padding-left: 20px;"><div class="press-release-title">ReconIQ Selected by Middle East Sovereign Wealth Fund for Centralised Reconciliation Programme</div><div class="press-release-body">ReconIQ appointed to lead the design and implementation of a centralised reconciliation framework spanning all asset classes.</div></div><div class="press-release-arrow">→</div></div>
+      <div><div class="footer-heading">Services</div><ul class="footer-links"><li><a href="services.html">Reconciliation Health Check</a></li><li><a href="services.html">Process Design &amp; Architecture</a></li><li><a href="services.html">Vendor Selection Advisory</a></li><li><a href="services.html">Implementation &amp; Integration</a></li><li><a href="services.html">Training &amp; BAU Support</a></li></ul></div>
+      <div><div class="footer-heading">Company</div><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="newsroom.html">Newsroom</a></li><li><a href="resources.html">Resources</a></li><li><a href="partners.html">Partners</a></li></ul></div>
+      <div><div class="footer-heading">Markets</div><ul class="footer-links"><li><a href="#">Investment Banking</a></li><li><a href="#">Asset Management</a></li><li><a href="#">Sovereign Wealth</a></li><li><a href="#">Fund Administration</a></li><li><a href="#">Insurance</a></li><li><a href="#">FinTech</a></li></ul></div>
     </div>
-  </section>
-  <footer><div class="container"><div class="footer-bottom" style="border-top: none; padding: 24px 0;"><div class="footer-legal">© 2026 ReconIQ Ltd. All rights reserved.</div><button class="btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="showPage('home')">← Home</button></div></div></footer>
-</div><!-- /newsroom -->
-
-
-<!-- PAGE: RESOURCES -->
-<div id="page-resources" class="page">
-  <div class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="container">
-      <div class="section-eyebrow">Resources</div>
-      <h1 class="section-title" style="font-size: 48px; max-width: 640px;">Whitepapers, guides &amp;<br><span>tools for practitioners</span></h1>
-      <p style="font-size: 17px; color: var(--mid-gray); max-width: 560px; line-height: 1.75; margin-top: 16px;">Independent, vendor-agnostic resources to help financial institutions make better decisions about their reconciliation technology and operations.</p>
+    <div class="footer-bottom">
+      <div class="footer-legal">© 2026 ReconIQ Ltd. All rights reserved. · Registered in England &amp; Wales, Company No. 16875234 · <a href="#" style="color:inherit;">Privacy Policy</a></div>
+      <div class="footer-socials"><div class="social-btn">in</div><div class="social-btn">𝕏</div></div>
     </div>
   </div>
-  <section>
-    <div class="container">
-      <div class="space-between" style="margin-bottom: 28px;"><div><div class="section-eyebrow">Complimentary</div><h2 class="section-title" style="font-size: 28px; margin-bottom: 0;">Free Resources</h2></div></div>
-      <div class="grid-3" style="margin-bottom: 64px;">
-        <div class="resource-card"><div class="resource-card-thumb" style="background: linear-gradient(135deg, var(--purple-dark), var(--panel));">🏥</div><div class="resource-card-body"><div class="tag tag-teal" style="margin-bottom: 10px;">Free Download</div><div class="resource-card-title">Reconciliation Health Check Checklist</div><div class="resource-card-desc">A self-assessment checklist covering the 10 key questions every institution should be able to answer about their reconciliation estate.</div></div><div class="resource-card-footer"><span class="resource-price free">Free</span><button class="btn-teal" style="padding: 8px 16px; font-size: 12px;">↓ Download</button></div></div>
-        <div class="resource-card"><div class="resource-card-thumb" style="background: linear-gradient(135deg, var(--teal-dark), var(--panel));">📊</div><div class="resource-card-body"><div class="tag tag-teal" style="margin-bottom: 10px;">Free Download</div><div class="resource-card-title">Reconciliation ROI Calculator</div><div class="resource-card-desc">A practical template for calculating the ROI of reconciliation automation. Quantify time savings, exception reduction, and cost avoidance.</div></div><div class="resource-card-footer"><span class="resource-price free">Free</span><button class="btn-teal" style="padding: 8px 16px; font-size: 12px;">↓ Download</button></div></div>
-        <div class="resource-card"><div class="resource-card-thumb" style="background: linear-gradient(135deg, var(--purple-dim), var(--panel));">📋</div><div class="resource-card-body"><div class="tag tag-teal" style="margin-bottom: 10px;">Free Download</div><div class="resource-card-title">Sample Flow Charts: Reconciliation Architecture</div><div class="resource-card-desc">Illustrative flow chart examples from ReconIQ client engagements — covering end-to-end position reconciliation and 3-way custodian models.</div></div><div class="resource-card-footer"><span class="resource-price free">Free</span><button class="btn-teal" style="padding: 8px 16px; font-size: 12px;">↓ Download</button></div></div>
-      </div>
-      <div class="space-between" style="margin-bottom: 28px;"><div><div class="section-eyebrow">Premium Resources</div><h2 class="section-title" style="font-size: 28px; margin-bottom: 0;">Paid Whitepapers &amp; Tools</h2></div></div>
-      <div class="grid-3" style="margin-bottom: 64px;">
-        <div class="resource-card"><div class="resource-card-thumb" style="background: linear-gradient(135deg, #3D1F7A, var(--panel));">📖</div><div class="resource-card-body"><div class="tag tag-purple" style="margin-bottom: 10px;">Whitepaper</div><div class="resource-card-title">Reconciliation Technology Buyer's Guide 2026</div><div class="resource-card-desc">The definitive vendor-agnostic guide to selecting reconciliation technology. Covers 20+ platforms with structured evaluation criteria.</div></div><div class="resource-card-footer"><span class="resource-price">£299</span><button class="btn-primary" style="padding: 8px 16px; font-size: 12px;">Buy Now</button></div></div>
-        <div class="resource-card"><div class="resource-card-thumb" style="background: linear-gradient(135deg, #3D1F7A, var(--panel));">📄</div><div class="resource-card-body"><div class="tag tag-purple" style="margin-bottom: 10px;">Template Pack</div><div class="resource-card-title">Pre-Built RFP Templates by Sector</div><div class="resource-card-desc">Off-the-shelf RFP templates for investment banking, asset management, insurance, and fund administration. Ready to issue in minutes.</div></div><div class="resource-card-footer"><span class="resource-price">£499</span><button class="btn-primary" style="padding: 8px 16px; font-size: 12px;">Buy Now</button></div></div>
-        <div class="resource-card"><div class="resource-card-thumb" style="background: linear-gradient(135deg, #0D3D38, var(--panel));">🤖</div><div class="resource-card-body"><div class="tag tag-orange" style="margin-bottom: 10px;">Research Report</div><div class="resource-card-title">AI in Reconciliation: Hype vs Reality</div><div class="resource-card-desc">Vendor-by-vendor analysis of AI capabilities across leading reconciliation platforms. What's real, what's roadmap.</div></div><div class="resource-card-footer"><span class="resource-price">£199</span><button class="btn-primary" style="padding: 8px 16px; font-size: 12px;">Buy Now</button></div></div>
-        <div class="resource-card"><div class="resource-card-thumb" style="background: linear-gradient(135deg, #1C3A14, var(--panel));">🏗️</div><div class="resource-card-body"><div class="tag tag-teal" style="margin-bottom: 10px;">Framework</div><div class="resource-card-title">Reconciliation CoE Design Framework</div><div class="resource-card-desc">Complete framework for designing a Reconciliation Centre of Excellence — governance structure, roles, operating model and KPI dashboards.</div></div><div class="resource-card-footer"><span class="resource-price">£399</span><button class="btn-primary" style="padding: 8px 16px; font-size: 12px;">Buy Now</button></div></div>
-        <div class="resource-card"><div class="resource-card-thumb" style="background: linear-gradient(135deg, var(--purple-dim), var(--panel));">📈</div><div class="resource-card-body"><div class="tag tag-purple" style="margin-bottom: 10px;">Case Study Bundle</div><div class="resource-card-title">Reconciliation Transformation Case Studies</div><div class="resource-card-desc">Five detailed case studies across investment banking, SWF, asset management, insurance, and retail banking.</div></div><div class="resource-card-footer"><span class="resource-price">£149</span><button class="btn-primary" style="padding: 8px 16px; font-size: 12px;">Buy Now</button></div></div>
-        <div class="resource-card"><div class="resource-card-thumb" style="background: linear-gradient(135deg, #3D2600, var(--panel));">🗂️</div><div class="resource-card-body"><div class="tag tag-orange" style="margin-bottom: 10px;">Toolkit</div><div class="resource-card-title">Vendor Evaluation Scoring Toolkit</div><div class="resource-card-desc">Structured scoring matrix, demo evaluation guide, and reference check framework for shortlisting reconciliation vendors.</div></div><div class="resource-card-footer"><span class="resource-price">£249</span><button class="btn-primary" style="padding: 8px 16px; font-size: 12px;">Buy Now</button></div></div>
-      </div>
-    </div>
-  </section>
-  <footer><div class="container"><div class="footer-bottom" style="border-top: none; padding: 24px 0;"><div class="footer-legal">© 2026 ReconIQ Ltd. All rights reserved.</div><button class="btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="showPage('home')">← Home</button></div></div></footer>
-</div><!-- /resources -->
-
-
-<!-- PAGE: PARTNERS -->
-<div id="page-partners" class="page">
-  <div class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="container">
-      <div class="section-eyebrow">Partners</div>
-      <h1 class="section-title" style="font-size: 48px; max-width: 640px;">The ecosystem behind<br><span>every engagement</span></h1>
-      <p style="font-size: 17px; color: var(--mid-gray); max-width: 560px; line-height: 1.75; margin-top: 16px;">ReconIQ maintains deep relationships with leading technology vendors, consulting firms, and specialist providers — ensuring we bring the right expertise to every client engagement.</p>
-    </div>
-  </div>
-  <section>
-    <div class="container">
-      <div class="section-eyebrow" style="margin-bottom: 8px;">Strategic Partners</div>
-      <h2 class="section-title" style="font-size: 28px; margin-bottom: 32px;">Our Partner Ecosystem</h2>
-      <div class="grid-3" style="margin-bottom: 64px;">
-        <div class="partner-card"><div class="partner-logo-placeholder">RECTECHX</div><div class="partner-type">Strategic Partner</div><div class="partner-name">RECTECHX Inc.</div><div class="partner-desc">Strategic consulting partnership for delivery across the UK, EU, Canada, USA, and the Middle East.</div><span class="tag tag-teal">Joint Press Release · Jan 2026</span></div>
-        <div class="partner-card"><div class="partner-logo-placeholder">IntelliMatch</div><div class="partner-type">Technology Advisory</div><div class="partner-name">IntelliMatch</div><div class="partner-desc">Deep expertise in IntelliMatch implementation, configuration, and optimisation for buy-side and sell-side institutions.</div><span class="tag tag-purple">Implementation Expertise</span></div>
-        <div class="partner-card"><div class="partner-logo-placeholder">AutoRek</div><div class="partner-type">Technology Advisory</div><div class="partner-name">AutoRek</div><div class="partner-desc">AutoRek implementation and vendor selection expertise for financial control, regulatory reporting, and cash reconciliation.</div><span class="tag tag-purple">Implementation Expertise</span></div>
-        <div class="partner-card"><div class="partner-logo-placeholder">SmartStream</div><div class="partner-type">Technology Advisory</div><div class="partner-name">SmartStream</div><div class="partner-desc">Senior SmartStream practitioners with deep TLM Reconciliations experience across global investment banks and asset managers.</div><span class="tag tag-purple">Implementation Expertise</span></div>
-        <div class="partner-card"><div class="partner-logo-placeholder">Broadridge</div><div class="partner-type">Technology Advisory</div><div class="partner-name">Broadridge</div><div class="partner-desc">Advisory expertise across Broadridge reconciliation and financial operations platforms for capital markets clients globally.</div><span class="tag tag-purple">Implementation Expertise</span></div>
-        <div class="partner-card"><div class="partner-logo-placeholder">Calixys</div><div class="partner-type">Technology Advisory</div><div class="partner-name">Calixys</div><div class="partner-desc">Calixys reconciliation implementation expertise for asset management and custodian clients, full project lifecycle.</div><span class="tag tag-purple">Implementation Expertise</span></div>
-      </div>
-      <div class="hc-featured">
-        <div class="grid-2" style="gap: 48px; align-items: center;">
-          <div>
-            <div class="hc-featured-badge">🤝 Partnership Opportunity</div>
-            <h2 class="section-title" style="font-size: 28px;">Become a ReconIQ Partner</h2>
-            <p style="font-size: 15px; color: var(--mid-gray); line-height: 1.75; margin-bottom: 20px;">ReconIQ partners with organisations who share our commitment to vendor-agnostic, delivery-focused reconciliation consulting. We're open to discussions with consulting firms, technology vendors, and specialist service providers.</p>
-            <button class="btn-primary">Discuss Partnership</button>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 16px;">
-            <div class="value-card"><div class="value-icon">🔗</div><div><div class="value-title">Consulting Firm Partners</div><div class="value-body">Joint delivery model for reconciliation workstreams within broader transformation programmes.</div></div></div>
-            <div class="value-card"><div class="value-icon">💻</div><div><div class="value-title">Vendor Partners</div><div class="value-body">Independent health check and advisory services that help your clients make better implementation decisions.</div></div></div>
-            <div class="value-card"><div class="value-icon">🌍</div><div><div class="value-title">Regional Partners</div><div class="value-body">Delivery partnerships for clients across the Middle East, North America, and Asia-Pacific.</div></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <footer><div class="container"><div class="footer-bottom" style="border-top: none; padding: 24px 0;"><div class="footer-legal">© 2026 ReconIQ Ltd. All rights reserved.</div><button class="btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="showPage('home')">← Home</button></div></div></footer>
-</div><!-- /partners -->
-
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-links button, .nav-links a').forEach(b => b.classList.remove('active'));
-  const page = document.getElementById('page-' + name);
-  if (page) { page.classList.add('active'); window.scrollTo(0, 0); }
-  const navBtn = document.getElementById('nav-' + name);
-  if (navBtn) navBtn.classList.add('active');
-  // Close mobile menu
-  document.getElementById('nav-links').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
-}
-
-function toggleMenu() {
-  const menu = document.getElementById('nav-links');
-  const burger = document.getElementById('hamburger');
-  menu.classList.toggle('open');
-  burger.classList.toggle('o
+</footer>
+<script>function toggleMenu(){document.getElementById("nav-links").classList.toggle("open");document.getElementById("hamburger").classList.toggle("open");}</script>
+</body></html>

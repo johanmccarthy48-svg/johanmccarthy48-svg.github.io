@@ -818,12 +818,7 @@ footer { background: var(--header-bg); border-top: 1px solid var(--border); padd
 <nav>
   <div class="nav-logo" onclick="showPage('home')">
     <!-- Real ReconIQ Logo SVG -->
-     <img src=""be4a7995-bab6-4608-9a78-b3199af90d27.jpg"" alt="ReconIQ" class="logo-svg">
-      <!-- R letter mark - matching the uploaded logo -->
-      <path d="M15 10 L15 90" stroke="#9D5CF5" stroke-width="18" stroke-linecap="square"/>
-      <path d="M15 10 Q60 10 60 32 Q60 54 15 54" stroke="#9D5CF5" stroke-width="18" stroke-linecap="square" fill="none"/>
-      <path d="M38 54 L80 90" stroke="#9D5CF5" stroke-width="18" stroke-linecap="square"/>
-    </svg>
+    <img src="be4a7995-bab6-4608-9a78-b3199af90d27.jpg" alt="ReconIQ" class="logo-svg" style="border-radius:4px;">
     <div class="nav-brand">ReconIQ</div>
   </div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -986,17 +981,13 @@ footer { background: var(--header-bg); border-top: 1px solid var(--border); padd
       <div class="footer-grid">
         <div>
           <div class="footer-logo">
-            <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15 10 L15 90" stroke="#9D5CF5" stroke-width="18" stroke-linecap="square"/>
-              <path d="M15 10 Q60 10 60 32 Q60 54 15 54" stroke="#9D5CF5" stroke-width="18" stroke-linecap="square" fill="none"/>
-              <path d="M38 54 L80 90" stroke="#9D5CF5" stroke-width="18" stroke-linecap="square"/>
-            </svg>
+            <img src="be4a7995-bab6-4608-9a78-b3199af90d27.jpg" alt="ReconIQ" class="logo-svg" style="border-radius:4px;">
             <div class="nav-brand">ReconIQ</div>
           </div>
           <p class="footer-tagline">Specialist reconciliation consulting services. Vendor-agnostic. Delivery-focused. Reconciliations mastered.</p>
           <div class="footer-contact">
             <a href="tel:+447376229996">+44 (0) 07376 229996</a>
-            <a href="mailto:info@reconiq.co">info@reconiq.co</a>
+            <a href="/cdn-cgi/l/email-protection#d9b0b7bfb699abbcbab6b7b0a8f7bab6"><span class="__cf_email__" data-cfemail="e38a8d858ca39186808c8d8a92cd808c">[email&#160;protected]</span></a>
             <a href="https://www.reconiq.co">www.reconiq.co</a>
           </div>
         </div>
@@ -1211,7 +1202,7 @@ footer { background: var(--header-bg); border-top: 1px solid var(--border); padd
       <h2 class="section-title" style="text-align: center; font-size: 32px;">Ready to start?</h2>
       <p style="text-align: center; color: #D4BBFF; margin-bottom: 28px;">Schedule a free 30-minute call to discuss your needs. No obligation.</p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-        <a href="mailto:info@reconiq.co" class="btn-primary">📧 Email info@reconiq.co</a>
+        <a href="/cdn-cgi/l/email-protection#31585f575e714354525e5f58401f525e" class="btn-primary">📧 Email <span class="__cf_email__" data-cfemail="acc5c2cac3ecdec9cfc3c2c5dd82cfc3">[email&#160;protected]</span></a>
         <a href="tel:+447376229996" class="btn-secondary" style="border-color: rgba(255,255,255,0.3); color: white;">📞 +44 (0) 07376 229996</a>
       </div>
     </div>
@@ -1333,7 +1324,7 @@ footer { background: var(--header-bg); border-top: 1px solid var(--border); padd
 </div><!-- /partners -->
 
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-links button, .nav-links a').forEach(b => b.classList.remove('active'));
@@ -1350,22 +1341,4 @@ function toggleMenu() {
   const menu = document.getElementById('nav-links');
   const burger = document.getElementById('hamburger');
   menu.classList.toggle('open');
-  burger.classList.toggle('open');
-}
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) { entry.target.style.animationPlayState = 'running'; }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.fade-in').forEach(el => {
-  el.style.animationPlayState = 'paused';
-  observer.observe(el);
-});
-</script>
-</body>
-</html>
-
-
-
+  burger.classList.toggle('o
